@@ -1,4 +1,5 @@
 class ResultsController < ApplicationController
+    skip_before_action :verify_authenticity_token, :only => :create
     def index
         @results = Result.all
     end
@@ -7,13 +8,8 @@ class ResultsController < ApplicationController
         @result = Result.find(params[:id])
     end
 
-    def import
-        file = Nokogiri::XML(request.raw_post)
-        create(file) 
-    end 
-
-    def create(file)
-        results = file.xpath("//mcq-test-result")
+    def create
+        results = Nokogiri::XML(request.raw_post).xpath("//mcq-test-result")
         ## Create result/test instances
         test_ids = []
         results.xpath("test-id").each do |test_id| 
@@ -40,10 +36,10 @@ class ResultsController < ApplicationController
         ## Update aggregate scores of imported results
         if test_ids.uniq.length > 1 
             test_ids.uniq!.each do |test_id|
-                aggregate_scores(test_id) 
+                aggregate(test_id) 
             end 
         else 
-            aggregate_scores(test_ids[0]) 
+            aggregate(test_ids[0]) 
         end
     end
 
@@ -73,7 +69,27 @@ class ResultsController < ApplicationController
         end 
     end
 
-    def aggregate_scores(test_id)
+    def aggregate(test_id)
+        obtained_scores = 0.to_f
+        class_available_marks = 0.to_f
+        scores = []
+        Score.where(result_id: test_id).each do |score| 
+            obtained_scores += score.obtained
+            class_available_marks += score.available
+            scores << score.obtained.to_f
+        end
+        count = scores.length
+        ordered_scores = scores.sort
+        available_marks = class_available_marks/count 
+        mean = ((obtained_scores/count/available_marks) * 100).round(1)
+        min = ((ordered_scores.first/available_marks) * 100).round(1)
+        max = ((ordered_scores.last/available_marks) * 100).round(1)
+        p25 = ((ordered_scores[count/4.round() + 1]/available_marks) * 100).round(1)
+        p50 = ((ordered_scores[count/2.round() + 1]/available_marks) * 100).round(1)
+        p75 = ((ordered_scores[(count - count/4).round() + 1]/available_marks) * 100).round(1)
+        result = Result.find(test_id)
+        result.update(mean: mean, min: min, max: max, p25: p25, p50: p50, p75: p75, count: count, available_marks: available_marks)
+        result.save
     end 
 
 end

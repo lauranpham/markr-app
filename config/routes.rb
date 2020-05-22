@@ -8,5 +8,5 @@ Rails.application.routes.draw do
       get :aggregate
     end
   end
-  resources :results, only: [:import], path: 'import'
+  resources :results, only: [:create], path: 'import'
 end
