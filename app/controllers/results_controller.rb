@@ -36,10 +36,10 @@ class ResultsController < ApplicationController
         ## Update aggregate scores of imported results
         if test_ids.uniq.length > 1 
             test_ids.uniq!.each do |test_id|
-                aggregate(test_id) 
+                aggregate_scores(test_id) 
             end 
         else 
-            aggregate(test_ids[0]) 
+            aggregate_scores(test_ids[0]) 
         end
     end
 
@@ -69,7 +69,7 @@ class ResultsController < ApplicationController
         end 
     end
 
-    def aggregate(test_id)
+    def aggregate_scores(test_id)
         obtained_scores = 0.to_f
         class_available_marks = 0.to_f
         scores = []
