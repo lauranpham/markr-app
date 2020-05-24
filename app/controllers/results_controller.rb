@@ -84,12 +84,29 @@ class ResultsController < ApplicationController
         mean = ((obtained_scores/count/available_marks) * 100).round(1)
         min = ((ordered_scores.first/available_marks) * 100).round(1)
         max = ((ordered_scores.last/available_marks) * 100).round(1)
-        p25 = ((ordered_scores[count/4.round() + 1]/available_marks) * 100).round(1)
-        p50 = ((ordered_scores[count/2.round() + 1]/available_marks) * 100).round(1)
-        p75 = ((ordered_scores[(count - count/4).round() + 1]/available_marks) * 100).round(1)
+        # data = {p25: , p50: , p75: }
+        data = stats(ordered_scores, available_marks)
         result = Result.find(test_id)
-        result.update(mean: mean, min: min, max: max, p25: p25, p50: p50, p75: p75, count: count, available_marks: available_marks)
+        result.update(mean: mean, min: min, max: max, p25: data[:p25], p50: data[:p50], p75: data[:p75], count: count, available_marks: available_marks)
         result.save
+    end 
+
+    def stats(ordered_scores, available_marks)
+        # add 1 to account for indexes starting at 0 
+        median_index = (ordered_scores.length + 1) / 2.0 - 1
+        if median_index % 2 != 0
+            median = (ordered_scores[median_index.ceil] + ordered_scores[median_index.floor])/2
+        else
+            median = ordered_scores[median_index]
+        end
+        p25 = ordered_scores[((ordered_scores.length) * 25.0/100).ceil - 1]
+        p50 = ordered_scores[((ordered_scores.length) * 75.0/100).ceil - 1]
+        data = {
+            p25: p25,
+            p50: median,
+            p75: p50,
+        }
+        return Hash[data.map{ |k,pvalue| [k, (pvalue.to_f/20 * 100).round(1)] }]
     end 
 
 end
