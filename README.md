@@ -24,7 +24,6 @@ docker-compose down
 ```
 
 1. Use a browser "Rest Client" (Like Postman) to import test results by inserting the curl commands provided below.
-   **IMPORT/CREATE Results**
    curl -X POST -H \
     -H 'Content-Type: test/xml+markr' \
     http://localhost:3000/import
