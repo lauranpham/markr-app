@@ -4,10 +4,22 @@
 Hi and welcome to your test marking system caled 'Markr'.
 This program allows you to import test results and display aggregate test results.
 
+Initial Set Up:
+
 ```bash
 docker-compose build
 docker-compose run web rake db:create db:migrate
+```
+
+Docker start up:
+
+```bash
 docker-compose up
+```
+
+Docker stop:
+
+```bash
 docker-compose down
 ```
 
