@@ -46,7 +46,7 @@ class ResultsController < ApplicationController
     def student_duplicate(student_id, test_id, first_name, last_name)
         if Student.find_by(id: student_id).present? && Student.find_by(id: student_id)["first_name"] != first_name
             # Print error message about duplicate student id
-            print "The test #{test_id} for #{first_name} #{last_name} is under a duplicate student number #{student_id}. This result will be ignored."
+            STDERR.puts "The test #{test_id} for #{first_name} #{last_name} is under a duplicate student number #{student_id}. This result will be ignored."
             return true
         else  
             return false
@@ -58,11 +58,11 @@ class ResultsController < ApplicationController
         if current_score.present?
             if current_score.obtained < obtained
                 # Print error message about current score being higher and overriding
-                print "This is a duplicate score for #{first_name} #{last_name} (#{student_id}). The new score is #{obtained}"
+                STDERR.puts "This is a duplicate score for #{first_name} #{last_name} (#{student_id}). The new score is #{obtained}"
                 current_score.update_attribute(:obtained, obtained)
             end
             # Print error message about current score being lower
-            print "This is a duplicate score for #{first_name} #{last_name} (#{student_id}). The score remains #{current_score.obtained}"
+            STDERR.puts "This is a duplicate score for #{first_name} #{last_name} (#{student_id}). The score remains #{current_score.obtained}"
             return true
         else
             return false

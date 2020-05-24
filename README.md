@@ -5,9 +5,10 @@ Hi and welcome to your test marking system caled 'Markr'.
 This program allows you to import test results and display aggregate test results.
 
 ```bash
-bundle install
-rails db:create db:migrate db:seed
-rails s
+docker-compose build
+docker-compose run web rake db:create db:migrate
+docker-compose up
+docker-compose down
 ```
 
 1. Use a browser "Rest Client" (Like Postman) to import test results by inserting the curl commands provided below.
