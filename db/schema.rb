@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_22_051109) do
+ActiveRecord::Schema.define(version: 2020_05_22_051101) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "results", force: :cascade do |t|
     t.integer "count"
@@ -29,8 +32,8 @@ ActiveRecord::Schema.define(version: 2020_05_22_051109) do
   create_table "scores", force: :cascade do |t|
     t.integer "obtained"
     t.integer "available"
-    t.integer "result_id", null: false
-    t.integer "student_id", null: false
+    t.bigint "result_id", null: false
+    t.bigint "student_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["result_id"], name: "index_scores_on_result_id"

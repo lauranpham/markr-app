@@ -16,6 +16,8 @@ rails s
     -H 'Content-Type: test/xml+markr' \
     http://localhost:3000/import
 
+   The body of the request should be your XML file content
+
 2. Display test results aggregate data in browser
 
 **INDEX Results/Tests**
