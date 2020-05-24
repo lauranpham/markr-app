@@ -69,5 +69,6 @@ My approach to the problem involved drawing out the key features of the applicat
 - Error handling
 - Data manipulation
 - Display of aggregate results and stats
-- Testing
-  I mapped out the sequence and logic first in my mind and on paper before coding to ensure all considerations were accounted for e.g. What attributes the models needed, potential errors, testing requirements.
+- Testing.
+
+  Mapping out the sequence and logic first before coding ensured all considerations were accounted for e.g. What attributes the models needed, data types, potential errors, testing requirements.
