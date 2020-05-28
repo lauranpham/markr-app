@@ -9,7 +9,7 @@ Initial Set Up:
 ```bash
 docker-compose build
 docker-compose run web rake db:create db:migrate
-docker-compose run web rails c
+# docker-compose run web rails c
 ```
 
 Docker start up:
@@ -43,7 +43,9 @@ http://localhost:3000/results/1234/aggregate
 There is basic error handling integrated into this system.
 
 - Next calls when data received contains errors e.g. duplicate student ids or duplicate test scores for the same student
-- Code print out of error message and explanation
+- Logging of error message and explanation
+
+The following gives you every line that has been logged as 'ERROR'
 
 ```bash
 grep ERROR results_log.txt
