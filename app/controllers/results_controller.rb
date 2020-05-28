@@ -9,6 +9,9 @@ class ResultsController < ApplicationController
     end
 
     def create
+        logger = Logger.new("results_log.txt")
+        Rails.logger.extend(ActiveSupport::Logger.broadcast(logger))
+        logger.level = Logger::ERROR
         results = Nokogiri::XML(request.raw_post).xpath("//mcq-test-result")
         ## Create result/test instances
         test_ids = []
@@ -27,8 +30,8 @@ class ResultsController < ApplicationController
             available = result.xpath("summary-marks").attribute("available").text.to_i
             first_name = result.xpath("first-name").text
             last_name = result.xpath("last-name").text
-            next result if student_duplicate(student_id, test_id, first_name, last_name)
-            next result if score_duplicate(student_id, test_id, obtained, first_name, last_name)
+            next result if student_duplicate(student_id, test_id, first_name, last_name, logger)
+            next result if score_duplicate(student_id, test_id, obtained, first_name, last_name, logger)
             Student.create(id: student_id, first_name: first_name, last_name: last_name)
             Score.create(obtained: obtained, available: available, result_id: test_id, student_id: student_id)
         end
@@ -43,26 +46,26 @@ class ResultsController < ApplicationController
         end
     end
 
-    def student_duplicate(student_id, test_id, first_name, last_name)
+    def student_duplicate(student_id, test_id, first_name, last_name, logger)
         if Student.find_by(id: student_id).present? && Student.find_by(id: student_id)["first_name"] != first_name
             # Print error message about duplicate student id
-            STDERR.puts "The test #{test_id} for #{first_name} #{last_name} is under a duplicate student number #{student_id}. This result will be ignored."
+            logger.error("The test #{test_id} for #{first_name} #{last_name} is under a duplicate student number #{student_id}. This result will be ignored.") 
             return true
         else  
             return false
         end
     end
     
-    def score_duplicate(student_id, test_id, obtained, first_name, last_name)
+    def score_duplicate(student_id, test_id, obtained, first_name, last_name, logger)
         current_score = Score.find_by(student_id: student_id, result_id: test_id)
         if current_score.present?
             if current_score.obtained < obtained
                 # Print error message about current score being higher and overriding
-                STDERR.puts "This is a duplicate score for #{first_name} #{last_name} (#{student_id}). The new score is #{obtained}"
+                logger.error("This is a duplicate score for #{first_name} #{last_name} (#{student_id}). The new score is #{obtained}")
                 current_score.update_attribute(:obtained, obtained)
             end
             # Print error message about current score being lower
-            STDERR.puts "This is a duplicate score for #{first_name} #{last_name} (#{student_id}). The score remains #{current_score.obtained}"
+            logger.error("This is a duplicate score for #{first_name} #{last_name} (#{student_id}). The score remains #{current_score.obtained}")
             return true
         else
             return false

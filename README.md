@@ -9,6 +9,7 @@ Initial Set Up:
 ```bash
 docker-compose build
 docker-compose run web rake db:create db:migrate
+docker-compose run web rails c
 ```
 
 Docker start up:
@@ -43,6 +44,10 @@ There is basic error handling integrated into this system.
 
 - Next calls when data received contains errors e.g. duplicate student ids or duplicate test scores for the same student
 - Code print out of error message and explanation
+
+```bash
+grep ERROR results_log.txt
+```
 
 **TESTING**
 There is a quick models test integrated into the program.

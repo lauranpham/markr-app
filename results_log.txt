@@ -1,0 +1,21 @@
+# Logfile created on 2020-05-28 07:58:20 +0000 by logger.rb/66358
+E, [2020-05-28T07:58:21.751178 #1] ERROR -- : The test 9863 for Rian Matthew is under a duplicate student number 2306. This result will be ignored.
+E, [2020-05-28T07:58:22.101909 #1] ERROR -- : The test 9863 for Penelope Dave is under a duplicate student number 2311. This result will be ignored.
+E, [2020-05-28T07:58:22.346126 #1] ERROR -- : This is a duplicate score for Jim Thomas (2315). The new score is 10
+E, [2020-05-28T07:58:22.365668 #1] ERROR -- : This is a duplicate score for Jim Thomas (2315). The score remains 10
+E, [2020-05-28T07:58:22.530178 #1] ERROR -- : The test 9863 for Daniel Dave is under a duplicate student number 2319. This result will be ignored.
+E, [2020-05-28T07:58:22.835950 #1] ERROR -- : The test 9863 for Penelope Byron is under a duplicate student number 2326. This result will be ignored.
+E, [2020-05-28T07:58:23.205734 #1] ERROR -- : The test 9863 for Stephanie Alysander is under a duplicate student number 2335. This result will be ignored.
+E, [2020-05-28T07:58:23.430064 #1] ERROR -- : The test 9863 for Dave Jean is under a duplicate student number 2340. This result will be ignored.
+E, [2020-05-28T07:58:23.533128 #1] ERROR -- : The test 9863 for Alice Matthew is under a duplicate student number 2342. This result will be ignored.
+E, [2020-05-28T07:58:23.771496 #1] ERROR -- : The test 9863 for Alice Byron is under a duplicate student number 2348. This result will be ignored.
+E, [2020-05-28T07:58:23.964049 #1] ERROR -- : The test 9863 for Jean Claire is under a duplicate student number 2353. This result will be ignored.
+E, [2020-05-28T07:58:24.060497 #1] ERROR -- : The test 9863 for Byron KJ is under a duplicate student number 2356. This result will be ignored.
+E, [2020-05-28T07:58:24.113014 #1] ERROR -- : The test 9863 for Daniel Dave is under a duplicate student number 2358. This result will be ignored.
+E, [2020-05-28T07:58:24.400463 #1] ERROR -- : The test 9863 for KJ Alysander is under a duplicate student number 2364. This result will be ignored.
+E, [2020-05-28T07:58:24.560300 #1] ERROR -- : The test 9863 for Jean Dave is under a duplicate student number 2367. This result will be ignored.
+E, [2020-05-28T07:58:24.708310 #1] ERROR -- : The test 9863 for Dave Stephanie is under a duplicate student number 2371. This result will be ignored.
+E, [2020-05-28T07:58:24.807403 #1] ERROR -- : The test 9863 for Susan Thomas is under a duplicate student number 2374. This result will be ignored.
+E, [2020-05-28T07:58:25.053302 #1] ERROR -- : The test 9863 for Alice Stephanie is under a duplicate student number 2380. This result will be ignored.
+E, [2020-05-28T07:58:25.192488 #1] ERROR -- : The test 9863 for Daniel Daniel is under a duplicate student number 2384. This result will be ignored.
+E, [2020-05-28T07:58:25.883912 #1] ERROR -- : The test 9863 for Jean Stephanie is under a duplicate student number 2398. This result will be ignored.
