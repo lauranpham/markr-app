@@ -32,6 +32,7 @@ class ResultsController < ApplicationController
             last_name = result.xpath("last-name").text
             next result if student_duplicate(student_id, test_id, first_name, last_name, logger)
             next result if score_duplicate(student_id, test_id, obtained, first_name, last_name, logger)
+            # wrap in begin rescue with error type filter. next result in rescue block.
             Student.create(id: student_id, first_name: first_name, last_name: last_name)
             Score.create(obtained: obtained, available: available, result_id: test_id, student_id: student_id)
         end
